@@ -23,4 +23,16 @@ public interface CryptoPriceMapper {
             ORDER BY cp.crypto_pair_id
             """)
     List<CryptoPrice> findLatestPrices();
+
+    @Select("""
+    SELECT cp.id, cp.crypto_pair_id as cryptoPairId, cp.bid_price as bidPrice, cp.ask_price as askPrice,
+           cp.bid_source as bidSource, cp.ask_source as askSource, cp.created_at as createdAt,
+           p.pair_name as pairName
+    FROM crypto_pairs p
+    INNER JOIN crypto_prices cp ON cp.crypto_pair_id = p.id
+    WHERE p.pair_name = #{pairName}
+    AND cp.created_at = (SELECT MAX(created_at) FROM crypto_prices WHERE crypto_pair_id = p.id)
+    LIMIT 1
+    """)
+    CryptoPrice findLatestByPairName(String pairName);
 }

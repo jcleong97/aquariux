@@ -6,6 +6,8 @@ import com.aquariux.technical.assessment.trade.service.TradeServiceInterface;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
+
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -17,8 +19,9 @@ import org.springframework.web.bind.annotation.RestController;
 @Tag(name = "Trade", description = "Trading operations")
 @RequiredArgsConstructor
 public class TradeController {
-
+    
     private final TradeServiceInterface tradeService;
+    
     // Add additional beans here if needed for your implementation
 
     @PostMapping(value = "/execute", produces = "application/json")
